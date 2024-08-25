@@ -1,0 +1,30 @@
+const inputArray = ['4', '10', '400']
+
+for (const ele of inputArray) {
+    const num = Number(ele)
+    if (!num) {
+        console.log(1)
+        continue
+    }
+    // dp[i][j]表示把num按i分成最多j个正整数的不重复方案数字
+    const solution = (num) => {
+        const dp = [[]]
+        for (let i = 1; i <= num; i++) {
+            dp[i] = []
+            for (let j = 1; j <= num; j++) {
+                if (i === 1 || j === 1) {
+                    dp[i][j] = 1
+                } else if (i === j) {
+                    dp[i][j] = dp[i][j-1] + 1
+                } else if (i < j) {
+                    dp[i][j] = dp[i][i]
+                } else {
+                    dp[i][j] = dp[i-j][j] + dp[i][j-1]
+                }
+                
+            }
+        }
+        console.log(dp[i][j])
+    }
+    solution(num)
+}
